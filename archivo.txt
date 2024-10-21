@@ -1,1 +1,2 @@
 archivo de texto sin modificar 
+Se agrega un segunda linea en la rama nueva_funcionalidad 
