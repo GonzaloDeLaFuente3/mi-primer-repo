@@ -16,10 +16,11 @@ const superheroSchema = new mongoose.Schema({
     edad : {type:Number, min:0},
     planetaOrigen: {type: String, default:'Desconocido'},
     debilidad : String,
-    poderes: [String],
-    aliados:[String],
-    enemigos: [String ],
-    createdAt: {type:Date, default: Date.now}
+    poder: [String],
+    aliado:[String],
+    enemigo: [String ],
+    createdAt: {type:Date, default: Date.now},
+    creador: { type: String, default: 'De La Fuente Gonzalo' }
     }, { collection: 'Grupo-04' });// Aquí defino la coleccion del grupo 
 
 const SuperHero = mongoose.model('SuperHero', superheroSchema);
@@ -33,14 +34,14 @@ async function insertSuperHero() {
         edad:43,
         planetaOrigen: 'Planeta Vegeta',
         debilidad: 'Inocencia y confianza excesiva',
-        poderes: ['Super Saiyan',
+        poder: ['Super Saiyan',
         'Kamehameha',
-        'Vuelo',
+        'Volar',
         'Teletransportación'],
-        aliados: ['Vegeta',
+        aliado: ['Vegeta',
         'Gohan',
         'Piccolo'],
-        enemigos: ['Freezer',
+        enemigo: ['Freezer',
         'Cell',
         'Majin Buu']
     });
