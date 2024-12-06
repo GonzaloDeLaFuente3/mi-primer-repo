@@ -51,11 +51,14 @@
                                 <div>N/A</div>
                             <% } %>
                         </td>
+                        <td>
+                            <a href="/api/heroes/<%= superheroe.id %>/editar">Editar</a>
+                        </td>
                     </tr>
                 <% }) %>
             <% } else { %>
                 <tr>
-                    <td colspan="8">No hay superhéroes disponibles.</td>
+                    <td colspan="9">No hay superhéroes disponibles.</td>
                 </tr>
             <% } %>
         </tbody>

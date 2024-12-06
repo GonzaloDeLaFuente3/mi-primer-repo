@@ -1,11 +1,21 @@
 import { body, param, validationResult } from 'express-validator';
 import mongoose from 'mongoose';
 
+// Mensajes de error
+const errorMessages = {
+  required: (field) => `${field} es requerido`,
+  length: (field, min, max) => `${field} debe tener entre ${min} y ${max} caracteres`,
+  positiveNumber: (field) => `${field} debe ser un número positivo`,
+  validArray: (field) => `${field} debe ser un arreglo con al menos un elemento`,
+  arrayItemLength: (field, min, max) => `Cada elemento de ${field} debe tener entre ${min} y ${max} caracteres`,
+  validObjectId: 'El ID no es válido',
+};
+
 // Función para validar si un ID es válido en MongoDB
 const validarObjectId = (id) => {
   console.log("esta en validarObjectId");
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    throw new Error('El ID no es válido');
+    throw new Error(errorMessages.validObjectId);
   }
   
   return true;
@@ -35,9 +45,13 @@ export const crearSuperheroeValidationRules = () => {
 
     // Validación para poder (debe ser un array con los requisitos dados)
     body('poder')
-      .isArray({ min: 1 }).withMessage('El campo "poder" debe ser un arreglo con al menos un elemento')
-      .custom(value => value.every(item => typeof item === 'string' && item.trim().length >= 3 && item.trim().length <= 60))
-      .withMessage('Cada poder debe ser una cadena de texto entre 3 y 60 caracteres, sin espacios en blanco'),
+    .custom(value => {
+        if (typeof value === 'string') {
+            const poderes = value.split(',').map(p => p.trim());
+            return poderes.every(item => typeof item === 'string' && item.length >= 3 && item.length <= 60);
+        }
+        return false;
+    }).withMessage('Cada poder debe ser una cadena de texto entre 3 y 60 caracteres, sin espacios en blanco'),
 
     
   ];
@@ -91,11 +105,16 @@ export const actualizarSuperheroeValidationRules = () => {
 
 // Middleware para manejar los errores de validación
 export const validar = (req, res, next) => {
-  console.log("esta en validar");
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
+    return res.status(400).json({
+      status: 'error',
+      message: 'Errores de validación',
+      errors: errors.array().map((err) => ({
+        field: err.param,
+        message: err.msg,
+      })),
+    });
   }
-  
   next();
 };

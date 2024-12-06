@@ -1,0 +1,51 @@
+<main>
+    <h1>Editar Superhéroe</h1>
+
+    <% if (locals.error) { %>
+        <div class="error-message"><%= error %></div>
+    <% } %>
+
+    <form action="/api/heroes/<%= superheroe.id %>/editar" method="POST">
+        <div>
+            <label for="nombreSuperHeroe">Nombre del Superhéroe</label>
+            <input type="text" id="nombreSuperHeroe" name="nombreSuperHeroe" value="<%= superheroe.nombreSuperHeroe %>" minlength="3" maxlength="60" required />
+        </div>
+
+        <div>
+            <label for="nombreReal">Nombre Real</label>
+            <input type="text" id="nombreReal" name="nombreReal" value="<%= superheroe.nombreReal %>" minlength="3" maxlength="60" required />
+        </div>
+
+        <div>
+            <label for="edad">Edad</label>
+            <input type="number" id="edad" name="edad" value="<%= superheroe.edad %>" min="0" required />
+        </div>
+
+        <div>
+            <label for="planetaOrigen">Planeta de Origen</label>
+            <input type="text" id="planetaOrigen" name="planetaOrigen" value="<%= superheroe.planetaOrigen %>" required />
+        </div>
+
+        <div>
+            <label for="debilidad">Debilidad</label>
+            <input type="text" id="debilidad" name="debilidad" value="<%= superheroe.debilidad %>" />
+        </div>
+
+        <div>
+            <label for="poder">Poderes</label>
+            <input type="text" id="poder" name="poder" value="<%= superheroe.poder.join(', ') %>" placeholder="Agregar poderes, separados por coma" required />
+        </div>
+
+        <div>
+            <label for="aliado">Aliados</label>
+            <input type="text" id="aliado" name="aliado" value="<%= superheroe.aliado.join(', ') %>" placeholder="Agregar aliados, separados por coma" />
+        </div>
+
+        <div>
+            <label for="enemigo">Enemigos</label>
+            <input type="text" id="enemigo" name="enemigo" value="<%= superheroe.enemigo.join(', ') %>" placeholder="Agregar enemigos, separados por coma" />
+        </div>
+
+        <button type="submit">Guardar Cambios</button>
+    </form>
+</main>

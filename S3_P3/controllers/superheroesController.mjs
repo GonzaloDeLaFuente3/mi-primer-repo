@@ -1,3 +1,4 @@
+import Hero from '../models/SuperHero.mjs';
 //gestionar las solicitudes HTTP , llamando a los servidores correspondientes y utilizando las vistas para presentar los datos 
 
 
@@ -6,11 +7,13 @@ import { obtenerSuperheroePorId, buscarSuperheroesPorAtributo, obtenerSuperheroe
 import { renderizarListaSuperheroes, renderizarSuperheroe } from "../views/responseView.mjs";
 
 export async function obtenerSuperheroePorIdController(req,res){
+    console.log("estamos en obtenerSuperheroePorIdController ");
     const {id} = req.params;
     const superheroe = await obtenerSuperheroePorId(id);
 
     if(superheroe){
-        res.send(renderizarSuperheroe(superheroe));
+        res.render('editSuperhero', { title: 'Editar Superhéroe', superheroe });
+        // res.send(renderizarSuperheroe(superheroe));
     }else{
         res.status(404).send({mensaje:"Superheroe no encontrado"});
     }
@@ -107,21 +110,62 @@ export async function eliminarSuperheroePorNombreController(req, res) {
 
 //-----------------------------------------------------------------------------------------------------------------
 export async function agregarSuperheroeController(req, res) {
+    const {
+        nombreSuperHeroe,
+        nombreReal,
+        edad,
+        planetaOrigen,
+        debilidad,
+        poder,
+        aliado,
+        enemigo
+    } = req.body;
+
+    // Convertir el campo poder en un arreglo
+    const poderes = poder ? poder.split(',').map(p => p.trim()) : [];
+
     try {
-        const { nombreSuperHeroe, nombreReal, edad, planetaOrigen, debilidad, poder, aliado, enemigo } = req.body;
+        const nuevoHeroe = new Hero({
+            nombreSuperHeroe,
+            nombreReal,
+            edad,
+            planetaOrigen,
+            debilidad,
+            poder: poderes,
+            aliado: aliado ? aliado.split(',').map(a => a.trim()) : [],
+            enemigo: enemigo ? enemigo.split(',').map(e => e.trim()) : []
+        });
 
-        // Convierte los campos de poderes, aliados y enemigos en arrays si están definidos
-        const poderes = poder ? poder.split(',').map(p => p.trim()) : [];
-        const aliados = aliado ? aliado.split(',').map(a => a.trim()) : [];
-        const enemigos = enemigo ? enemigo.split(',').map(e => e.trim()) : [];
+        await nuevoHeroe.save();
+        res.redirect('/api/heroes');
+    } catch (error) {
+        console.error(error);
+        res.status(500).render('error', { title: 'Error del servidor', error });
+    }
 
-        // Asegúrate de que todos los campos obligatorios estén presentes
-        if (!nombreSuperHeroe || !nombreReal || !edad || !planetaOrigen) {
-            return res.status(400).send({ mensaje: "Faltan campos obligatorios" });
-        }
+}
 
-        // Crea el superhéroe en la base de datos
-        const nuevoSuperheroe = await crearSuperheroe({
+export async function editarSuperheroeController(req, res) {
+    console.log("estoy en el controlador: editarSuperheroeController ");
+    const { id } = req.params;
+    const {
+        nombreSuperHeroe,
+        nombreReal,
+        edad,
+        planetaOrigen,
+        debilidad,
+        poder,
+        aliado,
+        enemigo
+    } = req.body;
+
+    // Convertir los campos de poderes, aliados y enemigos en arrays
+    const poderes = poder ? poder.split(',').map(p => p.trim()) : [];
+    const aliados = aliado ? aliado.split(',').map(a => a.trim()) : [];
+    const enemigos = enemigo ? enemigo.split(',').map(e => e.trim()) : [];
+
+    try {
+        const superheroeActualizado = await actualizarSuperheroe(id, {
             nombreSuperHeroe,
             nombreReal,
             edad,
@@ -132,10 +176,13 @@ export async function agregarSuperheroeController(req, res) {
             enemigo: enemigos
         });
 
-        // Redirige al dashboard o muestra la lista de superhéroes actualizada
-        res.redirect('/api/heroes'); // Redirige al dashboard donde se puede ver el superhéroe agregado
+        if (superheroeActualizado) {
+            res.redirect('/api/heroes');
+        } else {
+            res.status(404).send({ mensaje: "Superhéroe no encontrado" });
+        }
     } catch (error) {
-        console.error('Error al crear el superhéroe:', error);
-        res.status(500).send({ mensaje: "Error al crear el superhéroe", error });
+        console.error('Error al actualizar el superhéroe:', error);
+        res.status(500).send({ mensaje: "Error al actualizar el superhéroe", error });
     }
 }

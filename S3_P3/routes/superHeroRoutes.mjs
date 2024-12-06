@@ -1,7 +1,7 @@
 //definimos las rutas necesarias para cada operacion del controlador 
 import express from 'express';
 
-import { obtenerSuperheroesMayoresDe30Controller,obtenerSuperheroePorIdController,obtenerTodosLosSuperheroesController,buscarSuperheroesPorAtributoController,crearSuperheroeController, actualizarSuperheroeController, eliminarSuperheroeController, eliminarSuperheroePorNombreController,agregarSuperheroeController  } from '../controllers/superheroesController.mjs';
+import { obtenerSuperheroesMayoresDe30Controller,obtenerSuperheroePorIdController,obtenerTodosLosSuperheroesController,buscarSuperheroesPorAtributoController,crearSuperheroeController, actualizarSuperheroeController, eliminarSuperheroeController, eliminarSuperheroePorNombreController,agregarSuperheroeController,editarSuperheroeController  } from '../controllers/superheroesController.mjs';
 
 
 // Importa las validaciones desde el middleware
@@ -22,7 +22,10 @@ router.get('/index', (req, res) => {
 
 
 router.get('/heroes', obtenerTodosLosSuperheroesController);
-router.get('/heroes/:id', obtenerSuperheroePorIdController);
+
+// Ruta GET para mostrar el formulario de edición
+router.get('/heroes/:id/editar', obtenerSuperheroePorIdController);
+
 router.get('/heroes/buscar/:atributo/:valor',buscarSuperheroesPorAtributoController);
 router.get('/heroes/edad/mayores30',obtenerSuperheroesMayoresDe30Controller);
 
@@ -48,6 +51,11 @@ router.post('/heroes/agregar',
 router.put('/actualizarSuperHeroe/:id', crearSuperheroeValidationRules(),  // Valida los campos antes de procesar
 validar,  // Middleware que maneja los errores de validación
 actualizarSuperheroeController);
+
+//-------------------------------------------------------------------------------------------------------------
+// Ruta PUT para editar un superhéroe
+router.post('/heroes/:id/editar', crearSuperheroeValidationRules(), validar, editarSuperheroeController);
+
 
 
 // Endpoint DELETE para eliminar un superhéroe
