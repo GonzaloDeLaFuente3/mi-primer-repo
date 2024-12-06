@@ -1,6 +1,5 @@
 //configuracion y conexion centralizada con MongoDB
 //permite tener una unica instancia de conexion para ser utilizadda en cualquier parte del proyecto 
-
 import mongoose from 'mongoose';
 
 export async function connect(){
@@ -11,9 +10,7 @@ export async function connect(){
                 useUnifiedTopology:true
             }
         );
-
         console.log('Conexion exitosa a MongoDB');
-
     } catch (error) {
         console.error('Error al conectar a MongoDB:', error);
         process.exit(1);

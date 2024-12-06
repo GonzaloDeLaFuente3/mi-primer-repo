@@ -13,7 +13,6 @@ export async function obtenerSuperheroePorIdController(req,res){
 
     if(superheroe){
         res.render('editSuperhero', { title: 'Editar Superhéroe', superheroe });
-        // res.send(renderizarSuperheroe(superheroe));
     }else{
         res.status(404).send({mensaje:"Superheroe no encontrado"});
     }
@@ -25,7 +24,6 @@ export async function obtenerTodosLosSuperheroesController(req,res){
         console.log(superheroes.length)
         // Usamos res.render para renderizar la vista 'dashboard.ejs' y pasar los datos de los superheroes
         res.render('dashboard', { title: 'Dashboard', superheroes }); // Renderiza la vista y pasa los datos
-        // res.send(renderizarListaSuperheroes(superheroes));
     } catch (error) {
         console.error("Error al obtener los superhéroes:", error);
         res.status(500).send({ mensaje: "Error al cargar el dashboard" });
@@ -57,8 +55,6 @@ export async function crearSuperheroeController(req,res){
     } catch (error) {
         res.status(500).send({ mensaje: "Error al crear el superhéroe", error });
     }
-
-    
 }
 
 export async function actualizarSuperheroeController(req,res){
@@ -86,7 +82,6 @@ export async function eliminarSuperheroeController(req, res) {
 
         if (superheroeEliminado) {
             res.redirect('/api/heroes');
-            // res.send(renderizarSuperheroe(superheroeEliminado));
         } else {
             res.status(404).send({ mensaje: "Superhéroe no encontrado" });
         }
@@ -145,7 +140,6 @@ export async function agregarSuperheroeController(req, res) {
         console.error(error);
         res.status(500).render('error', { title: 'Error del servidor', error });
     }
-
 }
 
 export async function editarSuperheroeController(req, res) {

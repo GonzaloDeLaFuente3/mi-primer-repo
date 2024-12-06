@@ -42,8 +42,6 @@ app.use((req, res) => {
     res.status(404).render('404', { mensaje: "Ruta no encontrada" }); // Vista de error 404
 });
 
-
-
 // Iniciar el servidor
 app.listen(PORT, () => {
     console.log(`Servidor escuchando en el puerto ${PORT}`);

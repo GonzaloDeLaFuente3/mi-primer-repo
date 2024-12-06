@@ -1,5 +1,4 @@
 //interfaz que me define los metodo CRUD
-
 class IRepository{
     obtenerPorId(id){
         throw new Error("Metodo 'obtenerPorId()' no implementado");

@@ -23,7 +23,6 @@ const validarObjectId = (id) => {
 
 // Reglas para crear un superhéroe
 export const crearSuperheroeValidationRules = () => {
-  
   return [
     // Validación para nombreSuperHeroe
     body('nombreSuperHeroe')
@@ -53,12 +52,10 @@ export const crearSuperheroeValidationRules = () => {
         return false;
     }).withMessage('Cada poder debe ser una cadena de texto entre 3 y 60 caracteres, sin espacios en blanco'),
 
-    
   ];
 };
 // Reglas para actualizar un superhéroe
 export const actualizarSuperheroeValidationRules = () => {
-  
   return [
     param('id')
       .custom(validarObjectId)
@@ -98,7 +95,6 @@ export const actualizarSuperheroeValidationRules = () => {
         item.trim() === item
       )).withMessage('Cada poder debe ser una cadena de texto entre 3 y 60 caracteres, sin espacios en blanco')
 
-    
   ];
 };
 // Middleware para manejar los errores de validación

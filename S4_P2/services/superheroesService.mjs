@@ -1,5 +1,4 @@
 //logica de negocio utilizando los metodos del repositorio para recuperar, bucar y filtrar datos de los superheroes 
-
 import superHeroRepository from "../repositories/SuperHeroRepository.mjs";
 
 export async function obtenerSuperheroePorId(id){
