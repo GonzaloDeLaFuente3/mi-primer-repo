@@ -78,16 +78,20 @@ export async function actualizarSuperheroeController(req,res){
 }
 
 export async function eliminarSuperheroeController(req, res) {
+    console.error("Encontro a --eliminarSuperheroeController--");
+    
     try {
         const { id } = req.params;
         const superheroeEliminado = await eliminarSuperheroe(id);
 
         if (superheroeEliminado) {
-            res.send(renderizarSuperheroe(superheroeEliminado));
+            res.redirect('/api/heroes');
+            // res.send(renderizarSuperheroe(superheroeEliminado));
         } else {
             res.status(404).send({ mensaje: "Superhéroe no encontrado" });
         }
     } catch (error) {
+        console.error('Error al eliminar el superhéroe:', error);
         res.status(500).send({ mensaje: "Error al eliminar el superhéroe", error });
     }
 }
@@ -106,7 +110,6 @@ export async function eliminarSuperheroePorNombreController(req, res) {
         res.status(500).send({ mensaje: "Error al eliminar el superhéroe", error });
     }
 }
-
 
 //-----------------------------------------------------------------------------------------------------------------
 export async function agregarSuperheroeController(req, res) {

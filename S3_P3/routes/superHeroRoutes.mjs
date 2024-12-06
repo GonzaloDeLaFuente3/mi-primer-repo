@@ -59,24 +59,14 @@ router.post('/heroes/:id/editar', crearSuperheroeValidationRules(), validar, edi
 
 
 // Endpoint DELETE para eliminar un superhéroe
-router.delete('/eliminarSuperHeroe/:id', eliminarSuperheroeController);
+// router.delete('/eliminarSuperHeroe/:id', eliminarSuperheroeController);
+
+router.delete('/heroes/:id', eliminarSuperheroeController);
+
 
 
 // Endpoint DELETE para eliminar un superhéroe por nombre
 router.delete('/eliminarSuperHeroe/nombre/:nombre', eliminarSuperheroePorNombreController);
 
-
-//dashboard utilizando otra ruta 
-// router.get('/dashboard', async (req, res) => {
-//   try {
-//       const response = await fetch('http://localhost:3000/api/heroes'); // Cambia el puerto si es necesario
-//       const superheroes = await response.json();
-//       console.log(superheroes);
-//       res.render('dashboard', { title: 'Dashboard', superheroes });
-//   } catch (error) {
-//       console.error('Error al obtener los superhéroes:', error);
-//       res.status(500).send('Error al cargar el dashboard');
-//   }
-// });
 
 export default router;

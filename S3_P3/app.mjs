@@ -4,6 +4,7 @@ import expressLayouts from 'express-ejs-layouts';
 import { connect } from './config/dbConfig.mjs';
 import superHeroRoutes from './routes/superHeroRoutes.mjs';
 import path from 'path'; // Para manejar rutas de archivos
+import methodOverride from 'method-override';
 
 const app = express();
 const PORT = 3000;
@@ -30,6 +31,9 @@ app.use((req, res, next) => {
     next();
 });
 
+// Usar method-override para manejar métodos DELETE
+app.use(methodOverride('_method'));
+
 // Configuración de rutas
 app.use('/api', superHeroRoutes);
 
@@ -37,6 +41,8 @@ app.use('/api', superHeroRoutes);
 app.use((req, res) => {
     res.status(404).render('404', { mensaje: "Ruta no encontrada" }); // Vista de error 404
 });
+
+
 
 // Iniciar el servidor
 app.listen(PORT, () => {

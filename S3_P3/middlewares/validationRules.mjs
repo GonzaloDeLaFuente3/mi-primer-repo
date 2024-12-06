@@ -56,7 +56,6 @@ export const crearSuperheroeValidationRules = () => {
     
   ];
 };
-
 // Reglas para actualizar un superhéroe
 export const actualizarSuperheroeValidationRules = () => {
   
@@ -102,7 +101,6 @@ export const actualizarSuperheroeValidationRules = () => {
     
   ];
 };
-
 // Middleware para manejar los errores de validación
 export const validar = (req, res, next) => {
   const errors = validationResult(req);
