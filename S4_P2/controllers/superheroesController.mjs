@@ -108,6 +108,39 @@ export async function eliminarSuperheroePorNombreController(req, res) {
 
 //-----------------------------------------------------------------------------------------------------------------
 export async function agregarSuperheroeController(req, res) {
+    // const {
+    //     nombreSuperHeroe,
+    //     nombreReal,
+    //     edad,
+    //     planetaOrigen,
+    //     debilidad,
+    //     poder,
+    //     aliado,
+    //     enemigo
+    // } = req.body;
+
+    // // Convertir el campo poder en un arreglo
+    // const poderes = poder ? poder.split(',').map(p => p.trim()) : [];
+
+    // try {
+    //     const nuevoHeroe = new Hero({
+    //         nombreSuperHeroe,
+    //         nombreReal,
+    //         edad,
+    //         planetaOrigen,
+    //         debilidad,
+    //         poder: poderes,
+    //         aliado: aliado ? aliado.split(',').map(a => a.trim()) : [],
+    //         enemigo: enemigo ? enemigo.split(',').map(e => e.trim()) : []
+    //     });
+
+    //     await nuevoHeroe.save();
+    //     res.redirect('/api/heroes');
+    // } catch (error) {
+    //     console.error(error);
+    //     res.status(500).render('error', { title: 'Error del servidor', error });
+    // }
+
     const {
         nombreSuperHeroe,
         nombreReal,
@@ -119,22 +152,24 @@ export async function agregarSuperheroeController(req, res) {
         enemigo
     } = req.body;
 
-    // Convertir el campo poder en un arreglo
+    // Convertir los campos de poderes, aliados y enemigos en arrays
     const poderes = poder ? poder.split(',').map(p => p.trim()) : [];
+    const aliados = aliado ? aliado.split(',').map(a => a.trim()) : [];
+    const enemigos = enemigo ? enemigo.split(',').map(e => e.trim()) : [];
+
+    const datosSuperheroe = {
+        nombreSuperHeroe,
+        nombreReal,
+        edad,
+        planetaOrigen,
+        debilidad,
+        poder: poderes,
+        aliado: aliados,
+        enemigo: enemigos
+    };
 
     try {
-        const nuevoHeroe = new Hero({
-            nombreSuperHeroe,
-            nombreReal,
-            edad,
-            planetaOrigen,
-            debilidad,
-            poder: poderes,
-            aliado: aliado ? aliado.split(',').map(a => a.trim()) : [],
-            enemigo: enemigo ? enemigo.split(',').map(e => e.trim()) : []
-        });
-
-        await nuevoHeroe.save();
+        await crearSuperheroe(datosSuperheroe);
         res.redirect('/api/heroes');
     } catch (error) {
         console.error(error);
