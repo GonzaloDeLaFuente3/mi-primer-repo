@@ -118,3 +118,13 @@ export async function obtenerTodosLosPaises() {
 export async function agregarPais(nuevoPais) {
   return await countryRepository.crear(nuevoPais);
 }
+
+// Obtener un país por ID
+export async function obtenerPaisPorId(id) {
+  return await countryRepository.obtenerPorId(id);
+}
+
+// Actualizar un país
+export async function actualizarPais(id, datosActualizados) {
+  return await countryRepository.actualizar(id, datosActualizados);
+}

@@ -6,6 +6,7 @@ npm install --save-dev nodemon //Nodemon es una herramienta que ayuda en el desa
 npm install express-ejs-layouts
 npm install method-override
 npm install ejs
+npm install express-validator
 
 
 

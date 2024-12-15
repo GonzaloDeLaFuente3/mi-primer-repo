@@ -7,6 +7,14 @@ class IRepository {
     obtenerTodos() {
       throw new Error("Método 'obtenerTodos()' no implementado");
     }
+
+    obtenerPorId() {
+      throw new Error("Método 'obtenerPorId()' no implementado");
+    }
+
+    actualizar() {
+      throw new Error("Método 'actualizar()' no implementado");
+    }
     
 }
 export default IRepository;

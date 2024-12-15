@@ -38,7 +38,7 @@
                         </tr>
                     <% }) %>
                     <!-- Fila de totales -->
-                    <tr class="border-b border-gray-300 bg-gray-100">
+                    <tr class="border-b border-gray-300 bg-gray-100 font-bold">
                         <td colspan="3" class="text-right px-2 py-4 whitespace-nowrap text-center border-r border-gray-300">Totales:</td>
                         <td class="px-2 py-4 whitespace-nowrap text-center border-r border-gray-300"><%= paises.reduce((total, pais) => total + pais.population, 0) %></td>
                         <td class="px-2 py-4 whitespace-nowrap text-center border-r border-gray-300"><%= paises.reduce((total, pais) => total + pais.area, 0) %></td>
