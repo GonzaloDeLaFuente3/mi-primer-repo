@@ -113,3 +113,8 @@ export async function fetchAndStoreCountries() {
 export async function obtenerTodosLosPaises() {
   return await countryRepository.obtenerTodos();
 }
+
+// Agregar un nuevo país
+export async function agregarPais(nuevoPais) {
+  return await countryRepository.crear(nuevoPais);
+}

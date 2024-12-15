@@ -1,7 +1,7 @@
 // routes/countryRoutes.mjs
 import express from 'express';
 import * as countryService from '../services/countryService.mjs';
-import { obtenerTodosLosPaisesController } from '../controllers/countryController.mjs';
+import { obtenerTodosLosPaisesController, agregarPaisController } from '../controllers/countryController.mjs';
 
 const router = express.Router();
 
@@ -22,6 +22,14 @@ router.get('/fetch-countries', async (req, res) => {
 
 //mostrar la tabla con los piases en la base de datos 
 router.get('/countries', obtenerTodosLosPaisesController);
+
+// Ruta para mostrar el formulario de agregar país
+router.get('/countries/add', (req, res) => {
+  res.render('addCountry', { title: 'Agregar País' });
+});
+
+// Ruta para manejar la solicitud de agregar país
+router.post('/countries/add', agregarPaisController);
 
 
 export default router;

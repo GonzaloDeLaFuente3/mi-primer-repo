@@ -1,4 +1,4 @@
-// models/Country.js
+// models/Country.mjs
 import mongoose from 'mongoose';
 
 const CountrySchema = new mongoose.Schema({
