@@ -3,7 +3,7 @@
     <h1 class="text-2xl font-bold mb-4 text-center">Dashboard de Países Hispanohablantes</h1>
     <div class="overflow-x-auto">
         <table class="min-w-full divide-y divide-gray-200 border border-gray-300 shadow-md">
-            <thead class="bg-gray-800 text-white">
+            <thead class="bg-green-900 text-white">
                 <tr class="border-b border-gray-300">
                     <th class="px-2 py-3 text-left text-xs font-medium uppercase tracking-wider text-center border-b border-gray-300 border-r border-gray-300">Nombre Oficial</th>
                     <th class="px-1 py-3 text-left text-xs font-medium uppercase tracking-wider text-center border-b border-gray-300 border-r border-gray-300">Capital</th>
@@ -29,7 +29,7 @@
                             <td class="px-2 py-4 whitespace-nowrap text-center border-r border-gray-300"><%= pais.timezones.join(', ') %></td>
                             <td class="px-2 py-4 whitespace-nowrap text-center border-r border-gray-300"><%= pais.creador %></td>
                             <td class="px-3 py-4 whitespace-nowrap text-center">
-                                <a href="/api/countries/<%= pais._id %>/editar" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">Editar</a>
+                                <a href="/api/countries/<%= pais._id %>/editar" class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600">Editar</a>
                                 <br><br>
                                 <form action="/api/countries/<%= pais._id %>?_method=DELETE" method="POST" class="inline" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este país?');">
                                     <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">Eliminar</button>

@@ -128,3 +128,8 @@ export async function obtenerPaisPorId(id) {
 export async function actualizarPais(id, datosActualizados) {
   return await countryRepository.actualizar(id, datosActualizados);
 }
+
+// Eliminar un país
+export async function eliminarPais(id) {
+  return await countryRepository.eliminar(id);
+}

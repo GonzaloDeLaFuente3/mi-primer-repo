@@ -16,5 +16,8 @@ class IRepository {
       throw new Error("Método 'actualizar()' no implementado");
     }
     
+    eliminar() {
+      throw new Error("Método 'eliminar()' no implementado");
+    }
 }
 export default IRepository;

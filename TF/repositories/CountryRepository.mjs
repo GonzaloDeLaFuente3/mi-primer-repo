@@ -22,6 +22,10 @@ class CountryRepository extends IRepository {
     return await Country.findByIdAndUpdate(id, datosActualizados, { new: true });
   }
 
+  async eliminar(id) {
+    return await Country.findByIdAndDelete(id);
+  }
+
 }
 
 export const countryRepository = new CountryRepository();

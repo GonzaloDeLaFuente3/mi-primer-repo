@@ -1,4 +1,4 @@
-// src/middleware/errorMiddleware.mjs
+// middleware/errorMiddleware.mjs
 // Middleware para manejar errores de validación
 export const handleValidationErrors = (req, res, next) => {
     const errors = validationResult(req);

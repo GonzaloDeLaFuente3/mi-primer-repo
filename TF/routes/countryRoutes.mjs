@@ -1,7 +1,7 @@
 // routes/countryRoutes.mjs
 import express from 'express';
 import * as countryService from '../services/countryService.mjs';
-import { obtenerTodosLosPaisesController, agregarPaisController,obtenerPaisPorIdController,editarPaisController } from '../controllers/countryController.mjs';
+import { obtenerTodosLosPaisesController, agregarPaisController,obtenerPaisPorIdController,editarPaisController, eliminarPaisController } from '../controllers/countryController.mjs';
 import { crearEditarPaisValidationRules, validar } from '../middlewares/validationRules.mjs';
 
 const router = express.Router();
@@ -37,6 +37,9 @@ router.get('/countries/:id/editar', obtenerPaisPorIdController);
 
 // Ruta para manejar la solicitud de edición de un país
 router.put('/countries/:id/editar', crearEditarPaisValidationRules(), validar, editarPaisController);
+
+// Ruta para manejar la solicitud de eliminación de un país
+router.delete('/countries/:id', eliminarPaisController);
 
 
 export default router;
