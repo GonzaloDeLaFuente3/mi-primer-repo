@@ -25,7 +25,13 @@
                             <td class="px-2 py-4 whitespace-nowrap text-center border-r border-gray-300"><%= pais.borders.join(', ') || 'N/A' %></td>
                             <td class="px-1 py-4 whitespace-nowrap text-center border-r border-gray-300"><%= pais.area %></td>
                             <td class="px-2 py-4 whitespace-nowrap text-center border-r border-gray-300"><%= pais.population %></td>
-                            <td class="px-3 py-4 whitespace-nowrap text-center border-r border-gray-300"><%= pais.gini ? Object.values(pais.gini).join(', ') : 'N/A' %></td>
+                            <td class="px-2 py-4 whitespace-nowrap text-center border-r border-gray-300">
+                                <% if (Object.keys(pais.gini).length > 0) { %>
+                                    <%= Object.values(pais.gini).join(', ') %>
+                                <% } else { %>
+                                    N/A
+                                <% } %>
+                            </td>
                             <td class="px-2 py-4 whitespace-nowrap text-center border-r border-gray-300"><%= pais.timezones.join(', ') %></td>
                             <td class="px-1 py-4 whitespace-nowrap text-center border-r border-gray-300"><%= pais.creador %></td>
                             <td class="px-3 py-4 whitespace-nowrap text-center">
@@ -44,10 +50,21 @@
                         <td class="px-2 py-4 whitespace-nowrap text-center border-r border-gray-300"><%= paises.reduce((total, pais) => total + pais.area, 0) %></td>
                         <td class="px-3 py-4 whitespace-nowrap text-center border-r border-gray-300">
                             <%
-                            const giniValues = paises.flatMap(pais => Object.values(pais.gini));
-                            const giniSum = giniValues.reduce((total, value) => total + value, 0);
-                            const giniAvg = giniValues.length ? giniSum / giniValues.length : 0;
+                                // asegurar que pais.gini es siempre un objeto válido o devuelve un array vacío.
+                                const giniValues = paises.flatMap(pais => {
+                                    if (pais.gini && typeof pais.gini === "object") {
+                                        return Object.values(pais.gini);
+                                    }
+                                    return []; // Devuelve un array vacío si no hay datos válidos
+                                });
+
+                                // Sumar todos los valores del índice Gini
+                                const giniSum = giniValues.reduce((total, value) => total + parseFloat(value), 0);
+
+                                // Calcular el promedio del índice Gini
+                                const giniAvg = giniValues.length ? giniSum / giniValues.length : 0;
                             %>
+                            
                             <%= giniAvg.toFixed(2) %>
                         </td>
                         <td colspan="3" class="px-2 py-4 whitespace-nowrap text-center"></td>

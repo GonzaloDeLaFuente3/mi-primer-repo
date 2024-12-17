@@ -30,7 +30,7 @@ export async function agregarPaisController(req, res) {
             capital: [req.body.capital],
             area: req.body.area,
             population: req.body.population,
-            gini: { [req.body.gini]: req.body.gini }, // Asegúrate de que el campo gini se incluya
+            gini: req.body.gini ? { [req.body.gini]: req.body.gini } : {}, // Asegúrate de que el campo gini se incluya
             timezones: [req.body.timezones],
             borders: req.body.borders ? req.body.borders.split(',').map(border => border.trim()) : [],
             creador: 'De La Fuente Gonzalo'
@@ -85,7 +85,7 @@ export async function editarPaisController(req, res) {
             capital: capital.split(',').map(cap => cap.trim()),
             area,
             population,
-            gini: { [gini]: gini },
+            gini: gini ? { [gini]: gini } : {}, // Asegúrate de que el campo gini se incluya
             timezones: timezones.split(',').map(tz => tz.trim()),
             borders: borders ? borders.split(',').map(border => border.trim()) : []
         };

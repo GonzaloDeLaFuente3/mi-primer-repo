@@ -2,7 +2,9 @@
 import axios from 'axios';
 import { countryRepository } from '../repositories/CountryRepository.mjs';
 
-const apiUrl = 'https://restcountries.com/v3.1/all';
+const apiUrl = 'https://restcountries.com/v3.1/lang/spanish';
+// https://restcountries.com/v3.1/lang/spanish
+
 
 // Consumo y devuelvo los países
 async function getCountries() {
