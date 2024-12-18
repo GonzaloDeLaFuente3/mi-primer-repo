@@ -7,9 +7,10 @@ const apiUrl = 'https://restcountries.com/v3.1/lang/spanish';
 
 
 // Consumo y devuelvo los países
+//Axios, una biblioteca de JavaScript para realizar solicitudes HTTP.
 async function getCountries() {
   try {
-    const response = await axios.get(apiUrl);
+    const response = await axios.get(apiUrl); //solicitud HTTP GET a la URL de la API especificada por apiUrl.
     return response.data;
   } catch (error) {
     console.error('Error al obtener la lista de países:', error);
@@ -19,11 +20,12 @@ async function getCountries() {
 
 // Filtro los países
 function filterSpanishSpeakingCountries(countries) {
-  return countries.filter(country => country.languages && country.languages.spa === 'Spanish');
+  return countries.filter(country => country.languages && country.languages.spa === 'Spanish');//idioma español presente 
 }
 
 // Proceso los países para luego guardar en la base de datos
 // Selecciono los campos de interés
+//Aseguro que todos los objetos sigan una estructura consistente.
 function processCountries(countries) {
   return countries.map(country => {
     const {

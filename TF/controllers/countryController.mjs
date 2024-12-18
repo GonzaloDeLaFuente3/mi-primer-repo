@@ -28,12 +28,12 @@ export async function agregarPaisController(req, res) {
                     }
                 }
             },
-            capital: [req.body.capital],
+            capital: [req.body.capital],//arreglo
             area: req.body.area,
             population: req.body.population,
-            gini: req.body.gini ? { [req.body.gini]: req.body.gini } : {}, // aseguro de que el campo gini se incluya
-            timezones: [req.body.timezones],
-            borders: req.body.borders ? req.body.borders.split(',').map(border => border.trim()) : [],
+            gini: req.body.gini ? { [req.body.gini]: req.body.gini } : {}, // aseguro de que el campo gini se incluya, clave - valor
+            timezones: [req.body.timezones],//arreglo
+            borders: req.body.borders ? req.body.borders.split(',').map(border => border.trim()) : [],//Convierte una lista de países vecinos (separados por comas) en un arreglo.
             creador: 'De La Fuente Gonzalo'
         };
 
@@ -124,6 +124,7 @@ export async function eliminarPaisController(req, res) {
     }
 }
 
+//consumo el API y redirecciono a la tabla de paises 
 export async function fetchAndStoreCountriesController(req, res) {
     try {
         await fetchAndStoreCountries();
