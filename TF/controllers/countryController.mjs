@@ -1,12 +1,14 @@
 // controllers/countryController.mjs
-import { obtenerTodosLosPaises, agregarPais, obtenerPaisPorId, actualizarPais,eliminarPais  } from "../services/countryService.mjs";
+import { obtenerTodosLosPaises, agregarPais, obtenerPaisPorId, actualizarPais,eliminarPais,fetchAndStoreCountries  } from "../services/countryService.mjs";
 
 //obtener todos los paises de la bd y mostrarlo en la tabla
 export async function obtenerTodosLosPaisesController(req, res) {
 try {
     const paises = await obtenerTodosLosPaises(); // Obtiene los países de la base de datos o servicio
     console.log(paises.length);
-    res.render('dashboard', { title: 'Dashboard', paises }); // Renderiza la vista y pasa los datos
+    req.flash('success', 'Tabla de paises carga correctamente');
+    // console.log(req.flash());
+    res.render('dashboard', { title: 'Dashboard', paises}); // Renderiza la vista y pasa los datos
 } catch (error) {
     console.error("Error al obtener los países:", error);
     res.status(500).send({ mensaje: "Error al cargar el dashboard" });
@@ -37,6 +39,7 @@ export async function agregarPaisController(req, res) {
         };
 
         await agregarPais(nuevoPais);
+        req.flash('success', 'País agregado correctamente');
         res.redirect('/api/countries');
     } catch (error) {
         console.error("Error al agregar el país:", error);
@@ -50,7 +53,7 @@ export async function obtenerPaisPorIdController(req, res) {
     const pais = await obtenerPaisPorId(id);
 
     if (pais) {
-        res.render('editCountry', { title: 'Editar País', pais });
+        res.render('editCountry', { title: 'Editar País', pais, messages: req.flash() });
     } else {
         res.status(404).send({ mensaje: "País no encontrado" });
     }
@@ -93,6 +96,7 @@ export async function editarPaisController(req, res) {
         const paisActualizado = await actualizarPais(id, datosActualizados);
 
         if (paisActualizado) {
+            req.flash('success', 'País actualizado correctamente');
             res.redirect('/api/countries');
         } else {
             res.status(404).send({ mensaje: "País no encontrado" });
@@ -110,6 +114,7 @@ export async function eliminarPaisController(req, res) {
         const paisEliminado = await eliminarPais(id);
 
         if (paisEliminado) {
+            req.flash('success', 'País eliminado correctamente');
             res.redirect('/api/countries');
         } else {
             res.status(404).send({ mensaje: "País no encontrado" });
@@ -117,5 +122,16 @@ export async function eliminarPaisController(req, res) {
     } catch (error) {
         console.error("Error al eliminar el país:", error);
         res.status(500).send({ mensaje: "Error al eliminar el país" });
+    }
+}
+
+export async function fetchAndStoreCountriesController(req, res) {
+    try {
+        await fetchAndStoreCountries();
+        req.flash('success', 'Países hispanohablantes almacenados correctamente');
+        res.redirect('/api/countries');
+    } catch (error) {
+        console.error("Error al almacenar los países:", error);
+        res.status(500).send({ mensaje: "Error al almacenar los países" });
     }
 }

@@ -5,6 +5,8 @@ import { connect } from './config/db.mjs';
 import countryRoutes from './routes/countryRoutes.mjs';
 import path from 'path'; // Para manejar rutas de archivos
 import methodOverride from 'method-override';
+import flash from 'connect-flash';
+import session from 'express-session';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -18,6 +20,23 @@ app.set('layout', 'layout'); // Configura layout por defecto
 // Middleware para parsear JSON
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Configurar sesiones
+app.use(session({
+    secret: 'secretKey',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false }
+}));
+
+// Configurar flash
+app.use(flash());
+
+// Middleware para pasar mensajes flash a todas las vistas
+app.use((req, res, next) => {
+    res.locals.messages = req.flash(); // Hace que messages esté disponible globalmente
+    next();
+});
 
 // Conexión a MongoDB
 connect();
