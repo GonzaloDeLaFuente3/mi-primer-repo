@@ -4,11 +4,10 @@ import { obtenerTodosLosPaises, agregarPais, obtenerPaisPorId, actualizarPais,el
 //obtener todos los paises de la bd y mostrarlo en la tabla
 export async function obtenerTodosLosPaisesController(req, res) {
 try {
-    const paises = await obtenerTodosLosPaises(); // Obtiene los países de la base de datos o servicio
+    const paises = await obtenerTodosLosPaises(); // obtengo los países de la base de datos o servicio
     console.log(paises.length);
     req.flash('success', 'Tabla de paises carga correctamente');
-    // console.log(req.flash());
-    res.render('dashboard', { title: 'Dashboard', paises}); // Renderiza la vista y pasa los datos
+    res.render('dashboard', { title: 'Dashboard', paises}); // Renderizo la vista y paso los datos
 } catch (error) {
     console.error("Error al obtener los países:", error);
     res.status(500).send({ mensaje: "Error al cargar el dashboard" });
@@ -32,7 +31,7 @@ export async function agregarPaisController(req, res) {
             capital: [req.body.capital],
             area: req.body.area,
             population: req.body.population,
-            gini: req.body.gini ? { [req.body.gini]: req.body.gini } : {}, // Asegúrate de que el campo gini se incluya
+            gini: req.body.gini ? { [req.body.gini]: req.body.gini } : {}, // aseguro de que el campo gini se incluya
             timezones: [req.body.timezones],
             borders: req.body.borders ? req.body.borders.split(',').map(border => border.trim()) : [],
             creador: 'De La Fuente Gonzalo'
@@ -88,7 +87,7 @@ export async function editarPaisController(req, res) {
             capital: capital.split(',').map(cap => cap.trim()),
             area,
             population,
-            gini: gini ? { [gini]: gini } : {}, // Asegúrate de que el campo gini se incluya
+            gini: gini ? { [gini]: gini } : {}, // aseguro de que el campo gini se incluya
             timezones: timezones.split(',').map(tz => tz.trim()),
             borders: borders ? borders.split(',').map(border => border.trim()) : []
         };

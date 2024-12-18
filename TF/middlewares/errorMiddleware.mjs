@@ -10,7 +10,7 @@ export const handleValidationErrors = (req, res, next) => {
         errors: errors.array().map((err) => ({
           field: err.param,
           message: err.msg,
-          location: err.location, // Proporciona información adicional sobre la ubicación del error
+          location: err.location, // Proporciono información adicional sobre la ubicación del error
         })),
       });
     }

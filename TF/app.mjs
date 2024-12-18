@@ -15,13 +15,13 @@ const PORT = process.env.PORT || 5000;
 app.set('view engine', 'ejs');
 app.set('views', path.resolve('views')); // Directorio de vistas
 app.use(expressLayouts); // Habilita express-ejs-layouts
-app.set('layout', 'layout'); // Configura layout por defecto
+app.set('layout', 'layout'); // Configuro layout por defecto
 
 // Middleware para parsear JSON
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Configurar sesiones
+// Configuro sesiones
 app.use(session({
     secret: 'secretKey',
     resave: false,
@@ -29,7 +29,7 @@ app.use(session({
     cookie: { secure: false }
 }));
 
-// Configurar flash
+// Configuro flash
 app.use(flash());
 
 // Middleware para pasar mensajes flash a todas las vistas
@@ -40,14 +40,6 @@ app.use((req, res, next) => {
 
 // Conexión a MongoDB
 connect();
-
-// app.use((req, res, next) => {
-//     console.log('Método:', req.method);
-//     console.log('Ruta:', req.path);
-//     console.log('Cabeceras:', req.headers);
-//     console.log('Cuerpo:', req.body);
-//     next();
-// });
 
 // Usar method-override para manejar métodos DELETE
 app.use(methodOverride('_method'));

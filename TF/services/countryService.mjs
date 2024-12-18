@@ -79,14 +79,14 @@ function processCountries(countries) {
       flag,
       maps,
       population,
-      gini: gini ? gini : {}, // Asegúrate de que el campo gini se incluya
+      gini: gini ? gini : {}, // aseguro de que el campo gini se incluya
       fifa,
       timezones,
       continents,
       flags,
       startOfWeek,
       capitalInfo,
-      creador: 'De La Fuente Gonzalo' // Añade el campo creador
+      creador: 'De La Fuente Gonzalo' // añado el campo creador
     };
   });
 }
